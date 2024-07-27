@@ -15,7 +15,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            productByQuantity.merge(item, 0, (value, j) -> value + 1);
+            productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
         }
 
         int total = 0;
@@ -44,4 +44,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
