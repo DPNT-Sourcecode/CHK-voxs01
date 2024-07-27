@@ -52,7 +52,7 @@ public class CheckoutSolution {
             int freeBs = productByQuantity.get('E') / 2;
             productByQuantity.computeIfPresent('B', (c, items) -> items - freeBs);
 
-            if (productByQuantity.get('B') < 0) {
+            if (productByQuantity.getOrDefault('B', 0) < 0) {
                 productByQuantity.put('B', 0);
             }
         }

@@ -20,6 +20,8 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout(null)).isEqualTo(-1);
     assertThat(solution.checkout("-")).isEqualTo(-1);
     assertThat(solution.checkout("a")).isEqualTo(-1);
+    assertThat(solution.checkout("AxA")).isEqualTo(-1);
+    assertThat(solution.checkout("ABCa")).isEqualTo(-1);
   }
 
   @Test
@@ -46,5 +48,8 @@ class CheckoutSolutionTest {
   void shouldReturnTheTotalValue_ReceiveFreeB() {
     assertThat(solution.checkout("BBEEEEE")).isEqualTo(40 * 5);
     assertThat(solution.checkout("BBBBEEEEE")).isEqualTo(40 * 5 + 45);
+    assertThat(solution.checkout("EE")).isEqualTo(40 * 2);
+    assertThat(solution.checkout("EEB")).isEqualTo(40 * 2);
+    assertThat(solution.checkout("EEEB")).isEqualTo(40 * 3);
   }
 }
