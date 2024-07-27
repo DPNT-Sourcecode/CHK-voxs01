@@ -19,9 +19,13 @@ public class CheckoutSolution {
         priceByItem.put('E', new Item(40, List.of()));
     }
 
-    private Integer calculateOffer(int quantity, int normalPrice, int offerPrice, int offerQuantity) {
+    private Integer calculateOffer(int quantity, Item item) {
+        if (item.getOffers().isEmpty()) {
+            return quantity * item.getPrice();
+        }
+
         // Not clear at the moment if this will handle their cases, but will prevent errors
-        if (offerQuantity == 0) {
+        if (item.getOffers() == 0) {
             return 0;
         }
         int repeatOffer = quantity / offerQuantity;
@@ -75,4 +79,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
