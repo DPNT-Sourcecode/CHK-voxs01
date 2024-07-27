@@ -18,7 +18,6 @@ class CheckoutSolutionTest {
   @Test
   void shouldReturnZero_IfNullOrEmpty() {
     assertThat(solution.checkout(null)).isEqualTo(-1);
-    assertThat(solution.checkout("")).isEqualTo(-1);
   }
 
   @Test
@@ -49,5 +48,10 @@ class CheckoutSolutionTest {
   @Test
   void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct_LowerCase() {
     assertThat(solution.checkout("aaaaaaaa")).isEqualTo(130 * 2 + 50 * 2);
+  }
+
+  @Test
+  void shouldReturnTheTotalValue_SingleProduct() {
+    assertThat(solution.checkout("a")).isEqualTo(50);
   }
 }

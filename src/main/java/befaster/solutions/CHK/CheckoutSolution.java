@@ -19,7 +19,7 @@ public class CheckoutSolution {
     }
 
     public Integer checkout(String skus) {
-        if (skus == null || skus.isBlank()) {
+        if (skus == null) {
             return -1;
         }
 
