@@ -33,9 +33,12 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
                 // If there are remaining products, we will maintain them
                 productByQuantity.put(item, itemCount % quantity);
             } else {
-                productByQuantity.put(item, itemCount % quantity);
+                productByQuantity.put(item, itemCount - applicableDiscountTimes * quantity);
+                applicableDiscountTimes = 0;
             }
         }
+
+        
     }
 }
 
@@ -129,6 +132,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
