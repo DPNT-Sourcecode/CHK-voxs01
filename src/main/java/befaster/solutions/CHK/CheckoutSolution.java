@@ -3,13 +3,15 @@ package befaster.solutions.CHK;
 import befaster.runner.SolutionNotImplementedException;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class CheckoutSolution {
 
-    private Map<Character, Item> priceByItem;
+    private static final Map<Character, Item> priceByItem;
 
     private void initializePrices() {
         priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
@@ -79,5 +81,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
