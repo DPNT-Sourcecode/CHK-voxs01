@@ -75,6 +75,7 @@ class CheckoutSolutionTest {
   void groupDiscounts_OnlyApplyingDiscounts_NoRemnants() {
     assertThat(solution.checkout("SSSTTTXXXYYYZZZ")).isEqualTo(45 * 5);
     assertThat(solution.checkout("XXXXZZ")).isEqualTo(45 * 2);
+    assertThat(solution.checkout("XXXXZZAAABB")).isEqualTo(45 * 2 + 130 + 45);
   }
 
   @Test
@@ -83,3 +84,4 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("ZXYTSZXYTS")).isEqualTo(45 * 3 + 17);
   }
 }
+

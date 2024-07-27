@@ -71,7 +71,7 @@ public class CheckoutSolution {
         priceByItem.put('H', new Item(10, List.of(new Offer(5, 45), new Offer(10, 80))));
         priceByItem.put('I', new Item(35, List.of()));
         priceByItem.put('J', new Item(60, List.of()));
-        priceByItem.put('K', new Item(70, List.of(new Offer(2, 150))));
+        priceByItem.put('K', new Item(70, List.of(new Offer(2, 120))));
         priceByItem.put('L', new Item(90, List.of()));
         priceByItem.put('M', new Item(15, List.of()));
         priceByItem.put('N', new Item(40, List.of()));
@@ -136,3 +136,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
