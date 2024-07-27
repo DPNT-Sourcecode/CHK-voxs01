@@ -1,9 +1,7 @@
 package befaster.solutions.CHK;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Character destiny) {
 
@@ -20,11 +18,20 @@ record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Charac
 }
 
 record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice) {
-    public void apply(Map<Character, Integer> productByQuantity) {
+    public void apply(Map<Character, Integer> productByQuantity, Map<Character, Item> priceByItem) {
         int totalCount = items.stream().mapToInt(c -> productByQuantity.getOrDefault(c, 0)).sum();
 
-        for (Character item : items) {
-            
+        items.stream().sorted((a, b) -> Integer.compare(a))
+
+        TreeMap<Character, Item> itemsSortedByHighestPrice = items.stream().map(itemName -> {
+            Item item = priceByItem.get(itemName);
+            return Map.entry(itemName, item);
+        }).collect(Collectors.toMap());
+
+        for (Item item : itemsSortedByHighestPrice) {
+            int itemCount = productByQuantity.getOrDefault(item, 0);
+
+
         }
 
         if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
@@ -128,3 +135,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
