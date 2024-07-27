@@ -25,4 +25,9 @@ class CheckoutSolutionTest {
   void shouldReturnTheTotalValue() {
     assertThat(solution.checkout("ABCD")).isEqualTo(50 + 30 + 20 + 15);
   }
+
+  @Test
+  void shouldReturnTheTotalValue_SpecialOffers() {
+    assertThat(solution.checkout("AAABCD")).isEqualTo(130 + 30 + 20 + 15);
+  }
 }

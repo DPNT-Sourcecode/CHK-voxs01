@@ -25,6 +25,11 @@ public class CheckoutSolution {
 
             switch (item) {
                 case 'A':
+                    if (quantity > 2) {
+                        int repeatOffer = quantity / 3;
+                        int remainingProductsWithoutOffer = quantity % 3;
+                        total += repeatOffer * 130 + remainingProductsWithoutOffer * 50;
+                    }
                     total += quantity * 50;
                     break;
                 case 'B':
@@ -44,5 +49,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
