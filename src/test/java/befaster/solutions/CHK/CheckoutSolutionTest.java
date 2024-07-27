@@ -16,8 +16,15 @@ class CheckoutSolutionTest {
   }
 
   @Test
-  void shouldReturnZero_IfNullOrEmpty() {
+  void shouldReturnMinusOne_IfStringIsInvalid() {
     assertThat(solution.checkout(null)).isEqualTo(-1);
+    assertThat(solution.checkout("-")).isEqualTo(-1);
+    assertThat(solution.checkout("a")).isEqualTo(-1);
+  }
+
+  @Test
+  void shouldReturnZero_StringIsEmpty() {
+    assertThat(solution.checkout("")).isZero();
   }
 
   @Test
@@ -33,25 +40,5 @@ class CheckoutSolutionTest {
   @Test
   void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct() {
     assertThat(solution.checkout("AAAAAAAA")).isEqualTo(130 * 2 + 50 * 2);
-  }
-
-  @Test
-  void shouldReturnTheTotalValue_LowerCase() {
-    assertThat(solution.checkout("abcd")).isEqualTo(50 + 30 + 20 + 15);
-  }
-
-  @Test
-  void shouldReturnTheTotalValue_SpecialOffers_LowerCase() {
-    assertThat(solution.checkout("aaabbcd")).isEqualTo(130 + 45 + 20 + 15);
-  }
-
-  @Test
-  void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct_LowerCase() {
-    assertThat(solution.checkout("aaaaaaaa")).isEqualTo(130 * 2 + 50 * 2);
-  }
-
-  @Test
-  void shouldReturnTheTotalValue_SingleProduct() {
-    assertThat(solution.checkout("a")).isEqualTo(50);
   }
 }

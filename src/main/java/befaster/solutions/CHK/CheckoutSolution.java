@@ -23,10 +23,20 @@ public class CheckoutSolution {
             return -1;
         }
 
+        if (skus.isBlank()) {
+            return 0;
+        }
+
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
+            if (item >= 'A' && item <= 'D') {
+                productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
+            }
+        }
+
+        if (productByQuantity.isEmpty()) {
+            return -1;
         }
 
         int total = 0;
@@ -34,22 +44,17 @@ public class CheckoutSolution {
             Character item = entry.getKey();
             Integer quantity = entry.getValue();
 
-            // TODO: enhance based on feedbacks
             switch (item) {
                 case 'A':
-                case 'a':
                     total += calculateOffer(quantity, 50, 130, 3);
                     break;
                 case 'B':
-                case 'b':
                     total += calculateOffer(quantity, 30, 45, 2);
                     break;
                 case 'C':
-                case 'c':
                     total += quantity * 20;
                     break;
                 case 'D':
-                case 'd':
                     total += quantity * 15;
                     break;
                 default:
