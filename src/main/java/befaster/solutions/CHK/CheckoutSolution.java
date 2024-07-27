@@ -4,9 +4,20 @@ import befaster.runner.SolutionNotImplementedException;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
+
+    private Map<Character, Item> priceByItem;
+
+    private void initializePrices() {
+        priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
+        priceByItem.put('B', new Item(30, List.of(new Offer(2, 45))));
+        priceByItem.put('C', new Item(20, List.of()));
+        priceByItem.put('D', new Item(15, List.of()));
+        priceByItem.put('E', new Item(40, List.of()));
+    }
 
     private Integer calculateOffer(int quantity, int normalPrice, int offerPrice, int offerQuantity) {
         // Not clear at the moment if this will handle their cases, but will prevent errors
@@ -64,3 +75,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
