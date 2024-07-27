@@ -71,7 +71,7 @@ public class CheckoutSolution {
         priceByItem.put('H', new Item(10, List.of(new Offer(5, 45), new Offer(10, 80))));
         priceByItem.put('I', new Item(35, List.of()));
         priceByItem.put('J', new Item(60, List.of()));
-        priceByItem.put('K', new Item(80, List.of(new Offer(2, 150))));
+        priceByItem.put('K', new Item(70, List.of(new Offer(2, 150))));
         priceByItem.put('L', new Item(90, List.of()));
         priceByItem.put('M', new Item(15, List.of()));
         priceByItem.put('N', new Item(40, List.of()));
@@ -79,14 +79,14 @@ public class CheckoutSolution {
         priceByItem.put('P', new Item(50, List.of(new Offer(5, 200))));
         priceByItem.put('Q', new Item(30, List.of(new Offer(3, 80))));
         priceByItem.put('R', new Item(50, List.of()));
-        priceByItem.put('S', new Item(30, List.of()));
+        priceByItem.put('S', new Item(20, List.of()));
         priceByItem.put('T', new Item(20, List.of()));
         priceByItem.put('U', new Item(40, List.of()));
         priceByItem.put('V', new Item(50, List.of(new Offer(2, 90), new Offer(3, 130))));
         priceByItem.put('W', new Item(20, List.of()));
-        priceByItem.put('X', new Item(90, List.of()));
-        priceByItem.put('Y', new Item(10, List.of()));
-        priceByItem.put('Z', new Item(50, List.of()));
+        priceByItem.put('X', new Item(17, List.of()));
+        priceByItem.put('Y', new Item(20, List.of()));
+        priceByItem.put('Z', new Item(21, List.of()));
 
         getNFreeStrategies.add(new GetNFreeStrategy(2, 'E', 1, 'B'));
         getNFreeStrategies.add(new GetNFreeStrategy(3, 'F', 1, 'F'));
@@ -136,6 +136,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
