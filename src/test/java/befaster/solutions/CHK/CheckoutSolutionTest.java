@@ -71,4 +71,3 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 3 + 40 * 3);
   }
 }
-

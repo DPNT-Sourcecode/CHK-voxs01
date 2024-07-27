@@ -23,6 +23,10 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
     public void apply(Map<Character, Integer> productByQuantity) {
         int totalCount = items.stream().mapToInt(c -> productByQuantity.getOrDefault(c, 0)).sum();
 
+        for (Character item : items) {
+            
+        }
+
         if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
             int freeN = productByQuantity.get(origin) / quantity * freeQuantity;
             productByQuantity.computeIfPresent(destiny, (c, items) -> items - freeN);
@@ -124,7 +128,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
