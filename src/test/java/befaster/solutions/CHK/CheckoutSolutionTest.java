@@ -20,4 +20,9 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout(null)).isZero();
     assertThat(solution.checkout("")).isZero();
   }
+
+  @Test
+  void shouldReturnTheTotalValue() {
+    assertThat(solution.checkout("ABCD")).isEqualTo(50 + 30 + 20 + 15);
+  }
 }
