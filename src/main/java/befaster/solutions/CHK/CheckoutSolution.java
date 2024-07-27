@@ -17,21 +17,15 @@ public class CheckoutSolution {
     }
 
     private Integer calculateOffer(int quantity, Item item) {
-        if (item.getOffers().isEmpty()) {
-            return quantity * item.getPrice();
-        }
-
         int count = quantity;
         int total = 0;
         for (Offer offer : item.getOffers()) {
-            int offerQuantity = count / offer.getQuantity();
-            total += offerQuantity * offer.getTotalPrice();
-            count %= offerQuantity;
+            int offerCount = count / offer.getQuantity();
+            total += offerCount * offer.getTotalPrice();
+            count %= offer.getQuantity();
         }
-
-        int repeatOffer = quantity / offerQuantity;
-        int remainingProductsWithoutOffer = quantity % offerQuantity;
-        return repeatOffer * offerPrice + remainingProductsWithoutOffer * normalPrice;
+        total += count * item.getPrice();
+        return total;
     }
 
     public Integer checkout(String skus) {
@@ -46,7 +40,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            if (item >= 'A' && item <= 'D') {
+            if (item >= 'A' && item <= 'E') {
                 productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
             } else {
                 // No invalid values are allowed in the string
@@ -80,6 +74,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
