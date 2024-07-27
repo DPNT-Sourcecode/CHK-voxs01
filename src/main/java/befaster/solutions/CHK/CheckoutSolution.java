@@ -83,7 +83,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            if (item >= 'A' && item <= 'Z') {
+            if (priceByItem.containsKey(item)) {
                 productByQuantity.merge(item, 1, Integer::sum);
             } else {
                 // No invalid values are allowed in the string
@@ -107,3 +107,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+

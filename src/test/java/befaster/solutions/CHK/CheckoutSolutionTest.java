@@ -16,8 +16,12 @@ class CheckoutSolutionTest {
   }
 
   @Test
-  void shouldReturnMinusOne_IfStringIsInvalid() {
+  void shouldReturnMinusOne_IfStringIsNull() {
     assertThat(solution.checkout(null)).isEqualTo(-1);
+  }
+
+  @Test
+  void shouldReturnMinusOne_StringContainsAnythingOtherThanExistingProducts() {
     assertThat(solution.checkout("-")).isEqualTo(-1);
     assertThat(solution.checkout("a")).isEqualTo(-1);
     assertThat(solution.checkout("AxA")).isEqualTo(-1);
@@ -67,3 +71,4 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 3 + 40 * 3);
   }
 }
+
