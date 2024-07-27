@@ -26,6 +26,7 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("a")).isEqualTo(-1);
     assertThat(solution.checkout("AxA")).isEqualTo(-1);
     assertThat(solution.checkout("ABCa")).isEqualTo(-1);
+    assertThat(solution.checkout("Á")).isEqualTo(-1);
   }
 
   @Test
@@ -75,7 +76,6 @@ class CheckoutSolutionTest {
   void groupDiscounts_OnlyApplyingDiscounts_NoRemnants() {
     assertThat(solution.checkout("SSSTTTXXXYYYZZZ")).isEqualTo(45 * 5);
     assertThat(solution.checkout("XXXXZZ")).isEqualTo(45 * 2);
-    assertThat(solution.checkout("XXXXZZAAABB")).isEqualTo(45 * 2 + 130 + 45);
   }
 
   @Test
@@ -83,5 +83,14 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("ZZYYTTSSXX")).isEqualTo(45 * 3 + 17);
     assertThat(solution.checkout("ZXYTSZXYTS")).isEqualTo(45 * 3 + 17);
   }
+
+  @Test
+  void allDiscountTypesBeingApplied() {
+    // Group discount + Special offer
+    assertThat(solution.checkout("XXXXZZAAABB")).isEqualTo(45 * 2 + 130 + 45);
+    // Group discount + Special offer + Get one free
+    assertThat(solution.checkout("XXXXZZAAABBEEFFF")).isEqualTo(45 * 2 + 130 + 30 + 40 * 2 + 2 * 10);
+  }
 }
+
 

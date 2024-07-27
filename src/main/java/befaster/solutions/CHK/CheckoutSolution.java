@@ -35,7 +35,7 @@ record GroupDiscountStrategy(List<Character> items, int discountQuantity, int to
         List<Character> allItems = new ArrayList<>();
         for (Character item : items) {
             Integer itemQuantity = productByQuantity.getOrDefault(item, 0);
-            for (Integer i = 0; i < itemQuantity; i++) {
+            for (int i = 0; i < itemQuantity; i++) {
                 allItems.add(item);
             }
         }
@@ -136,4 +136,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
