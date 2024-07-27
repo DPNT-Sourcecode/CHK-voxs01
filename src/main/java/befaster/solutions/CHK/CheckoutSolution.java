@@ -14,6 +14,7 @@ public class CheckoutSolution {
         priceByItem.put('C', new Item(20, List.of()));
         priceByItem.put('D', new Item(15, List.of()));
         priceByItem.put('E', new Item(40, List.of()));
+        priceByItem.put('F', new Item(10, List.of()));
     }
 
     private Integer calculateOffer(int quantity, Item item) {
@@ -69,3 +70,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
