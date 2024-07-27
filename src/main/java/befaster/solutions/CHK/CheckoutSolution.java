@@ -49,9 +49,14 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
 
         List<Character> allItems = new ArrayList<>();
         for (Character item : items) {
-            allItems.add(item);
+            Integer itemQuantity = productByQuantity.getOrDefault(item, 0);
+            for (Integer i = 0; i < itemQuantity; i++) {
+                allItems.add(item);
+            }
         }
+        allItems.sort((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice()));
 
+        int nDiscountGroups = allItems / quantity;
     }
 }
 
@@ -145,5 +150,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
