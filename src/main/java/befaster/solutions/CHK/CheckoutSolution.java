@@ -1,7 +1,6 @@
 package befaster.solutions.CHK;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Character destiny) {
 
@@ -17,36 +16,8 @@ record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Charac
     }
 }
 
-record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice) {
+record GroupDiscountStrategy(List<Character> items, int discountQuantity, int totalPrice) {
     public void apply(Map<Character, Integer> productByQuantity, Map<Character, Item> priceByItem) {
-        int totalCount = items.stream().mapToInt(c -> productByQuantity.getOrDefault(c, 0)).sum();
-
-        List<Character> itemsSortedByHighestPrice = items.stream().sorted((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice())).toList();
-
-        // ZZZZZSS
-        // How many times we can apply this discount
-        int applicableDiscountTimes = totalCount / quantity; // 7 / 3 = 2
-        // Z: 5, S: 2
-        // 1: Z
-        // applicableDiscountTimes = 2
-        // itemCount = 5
-        // Z: 2, S: 2
-        // 2: S
-        // applicableDiscountTimes = 1
-        // itemCount = 2
-        for (Character item : itemsSortedByHighestPrice) {
-            int itemCount = productByQuantity.getOrDefault(item, 0);
-            if (itemCount <= applicableDiscountTimes * quantity) {
-                // We can apply the discount, so we need to remove the number of discounts we will apply with this product
-                applicableDiscountTimes -= itemCount / quantity;
-                // If there are remaining products, we will maintain them
-                productByQuantity.put(item, itemCount % quantity);
-            } else {
-                productByQuantity.put(item, itemCount - applicableDiscountTimes * quantity);
-                applicableDiscountTimes = 0;
-            }
-        }
-
         List<Character> allItems = new ArrayList<>();
         for (Character item : items) {
             Integer itemQuantity = productByQuantity.getOrDefault(item, 0);
@@ -57,18 +28,16 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
         allItems.sort((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice()));
 
         // Number of groups we will apply the discounts
-        int nDiscountGroups = allItems.size() / quantity;
+        int nDiscountGroups = allItems.size() / discountQuantity;
         // Products we will not apply discounts
-        int remainingProducts = allItems.size() % quantity;
+        int remainingProducts = allItems.size() % discountQuantity;
 
-        for (int i = 0; i < nDiscountGroups * quantity; i++) {
+        for (int i = 0; i < nDiscountGroups * discountQuantity; i++) {
             Character item = allItems.get(i);
             productByQuantity.merge(item, -1, Integer::sum);
         }
 
-        for (int i = 0; i < remainingProducts; i++) {
-            
-        }
+        
     }
 }
 
@@ -162,6 +131,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
