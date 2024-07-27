@@ -19,6 +19,20 @@ record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Charac
     }
 }
 
+record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Character destiny) {
+
+    public void apply(Map<Character, Integer> productByQuantity) {
+        if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
+            int freeN = productByQuantity.get(origin) / quantity * freeQuantity;
+            productByQuantity.computeIfPresent(destiny, (c, items) -> items - freeN);
+
+            if (productByQuantity.getOrDefault(destiny, 0) < 0) {
+                productByQuantity.put(destiny, 0);
+            }
+        }
+    }
+}
+
 record SpecialOfferStrategy() {
     public static Integer apply(int quantity, Item item) {
         int count = quantity;
@@ -109,5 +123,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
