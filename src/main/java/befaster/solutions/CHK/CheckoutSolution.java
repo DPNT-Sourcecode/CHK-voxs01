@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-record GetNFreeStrategy(int quantity, int freeQuantity, Character origin, Character destiny) {
+record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Character destiny) {
 
     public void apply(Map<Character, Integer> productByQuantity) {
         if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
@@ -52,11 +52,11 @@ public class CheckoutSolution {
         priceByItem.put('Y', new Item(10, List.of()));
         priceByItem.put('Z', new Item(50, List.of()));
 
-        getNFreeStrategies.add(new GetNFreeStrategy(2, 1, 'E', 'B'));
-        getNFreeStrategies.add(new GetNFreeStrategy(3, 1, 'F', 'F'));
-        getNFreeStrategies.add(new GetNFreeStrategy(3, 1, 'N', 'M'));
-        getNFreeStrategies.add(new GetNFreeStrategy(3, 1, 'R', 'Q'));
-        getNFreeStrategies.add(new GetNFreeStrategy(4, 1, 'U', 'U'));
+        getNFreeStrategies.add(new GetNFreeStrategy(2, 'E', 1, 'B'));
+        getNFreeStrategies.add(new GetNFreeStrategy(3, 'F', 1, 'F'));
+        getNFreeStrategies.add(new GetNFreeStrategy(3, 'N', 1, 'M'));
+        getNFreeStrategies.add(new GetNFreeStrategy(3, 'R', 1, 'Q'));
+        getNFreeStrategies.add(new GetNFreeStrategy(4, 'U', 1, 'U'));
     }
 
     private Integer calculateTotalWithOfferForItem(int quantity, Item item) {
@@ -83,7 +83,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            if (item >= 'A' && item <= 'F') {
+            if (item >= 'A' && item <= 'Z') {
                 productByQuantity.merge(item, 1, Integer::sum);
             } else {
                 // No invalid values are allowed in the string
@@ -107,8 +107,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
-

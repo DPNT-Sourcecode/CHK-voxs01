@@ -22,7 +22,6 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("a")).isEqualTo(-1);
     assertThat(solution.checkout("AxA")).isEqualTo(-1);
     assertThat(solution.checkout("ABCa")).isEqualTo(-1);
-    assertThat(solution.checkout("ABCDEFG")).isEqualTo(-1);
   }
 
   @Test
@@ -32,7 +31,7 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnTheTotalValue() {
-    assertThat(solution.checkout("ABCDEF")).isEqualTo(50 + 30 + 20 + 15 + 40 + 10);
+    assertThat(solution.checkout("ABCDEFZ")).isEqualTo(50 + 30 + 20 + 15 + 40 + 10 + 50);
   }
 
   @Test
@@ -46,22 +45,25 @@ class CheckoutSolutionTest {
   }
 
   @Test
-  void shouldReturnTheTotalValue_ReceiveOneFree() {
-    // For E
+  void forTwoEBought_ReceiveOneBFree() {
     assertThat(solution.checkout("BBEEEEE")).isEqualTo(40 * 5);
     assertThat(solution.checkout("BBBBEEEEE")).isEqualTo(40 * 5 + 45);
     assertThat(solution.checkout("EE")).isEqualTo(40 * 2);
     assertThat(solution.checkout("EEB")).isEqualTo(40 * 2);
     assertThat(solution.checkout("EEEB")).isEqualTo(40 * 3);
+  }
 
-    // For F
+  @Test
+  void forTwoFBought_ReceiveOneFFree() {
     assertThat(solution.checkout("FFFF")).isEqualTo(10 * 3);
     assertThat(solution.checkout("FFFFFF")).isEqualTo(10 * 4);
     assertThat(solution.checkout("FF")).isEqualTo(20);
+  }
 
+  @Test
+  void bothTypes_BuyNGetMFree() {
     // For E and F
     assertThat(solution.checkout("FFFFEEB")).isEqualTo(10 * 3 + 40 * 2);
     assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 3 + 40 * 3);
   }
 }
-
