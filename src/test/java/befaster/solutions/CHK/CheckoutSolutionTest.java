@@ -22,6 +22,7 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("a")).isEqualTo(-1);
     assertThat(solution.checkout("AxA")).isEqualTo(-1);
     assertThat(solution.checkout("ABCa")).isEqualTo(-1);
+    assertThat(solution.checkout("ABCDEF")).isEqualTo(-1);
   }
 
   @Test
