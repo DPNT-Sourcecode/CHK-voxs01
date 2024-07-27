@@ -48,27 +48,22 @@ public class CheckoutSolution {
             }
         }
 
+        if (productByQuantity.getOrDefault('E', 0) >= 2) {
+            int freeBs = productByQuantity.get('E') / 2;
+            productByQuantity.computeIfPresent('B', (c, items) -> items - freeBs);
+
+            if (productByQuantity.get('B') < 0) {
+                productByQuantity.put('B', 0);
+            }
+        }
+
         int total = 0;
         for (Map.Entry<Character, Integer> entry : productByQuantity.entrySet()) {
-            Character item = entry.getKey();
+            Character itemName = entry.getKey();
             Integer quantity = entry.getValue();
 
-            switch (item) {
-                case 'A':
-                    total += calculateOffer(quantity, 50, 130, 3);
-                    break;
-                case 'B':
-                    total += calculateOffer(quantity, 30, 45, 2);
-                    break;
-                case 'C':
-                    total += quantity * 20;
-                    break;
-                case 'D':
-                    total += quantity * 15;
-                    break;
-                default:
-                    break;
-            }
+            Item item = priceByItem.get(itemName);
+            total += calculateOffer(quantity, item);
         }
 
         return total;

@@ -29,16 +29,22 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnTheTotalValue() {
-    assertThat(solution.checkout("ABCD")).isEqualTo(50 + 30 + 20 + 15);
+    assertThat(solution.checkout("ABCDE")).isEqualTo(50 + 30 + 20 + 15 + 40);
   }
 
   @Test
   void shouldReturnTheTotalValue_SpecialOffers() {
-    assertThat(solution.checkout("AAABBCD")).isEqualTo(130 + 45 + 20 + 15);
+    assertThat(solution.checkout("AAAAABBCDE")).isEqualTo(200 + 45 + 20 + 15 + 40);
   }
 
   @Test
-  void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct() {
-    assertThat(solution.checkout("AAAAAAAA")).isEqualTo(130 * 2 + 50 * 2);
+  void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct_BestOffers() {
+    assertThat(solution.checkout("AAAAAAAAA")).isEqualTo(200 + 130 + 50);
+  }
+
+  @Test
+  void shouldReturnTheTotalValue_ReceiveFreeB() {
+    assertThat(solution.checkout("BBEEEEE")).isEqualTo(40 * 5);
+    assertThat(solution.checkout("BBBBEEEEE")).isEqualTo(40 * 5 + 45);
   }
 }
