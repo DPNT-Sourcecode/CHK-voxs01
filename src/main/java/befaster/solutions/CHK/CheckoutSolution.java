@@ -1,19 +1,14 @@
 package befaster.solutions.CHK;
 
-import befaster.runner.SolutionNotImplementedException;
-
-import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class CheckoutSolution {
 
-    private static final Map<Character, Item> priceByItem;
+    private static final Map<Character, Item> priceByItem = new HashMap<>();
 
-    private void initializePrices() {
+    static {
         priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
         priceByItem.put('B', new Item(30, List.of(new Offer(2, 45))));
         priceByItem.put('C', new Item(20, List.of()));
@@ -26,10 +21,12 @@ public class CheckoutSolution {
             return quantity * item.getPrice();
         }
 
-        // Not clear at the moment if this will handle their cases, but will prevent errors
-        if (item.getOffers() == 0) {
-            return 0;
+        int total = 0;
+        for (Offer offer : item.getOffers()) {
+            int offerCount = 
+
         }
+
         int repeatOffer = quantity / offerQuantity;
         int remainingProductsWithoutOffer = quantity % offerQuantity;
         return repeatOffer * offerPrice + remainingProductsWithoutOffer * normalPrice;
@@ -81,6 +78,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
