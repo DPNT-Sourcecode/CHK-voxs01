@@ -83,6 +83,3 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("ZXYTSZXYTS")).isEqualTo(45 * 3 + 17);
   }
 }
-
-
-

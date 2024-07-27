@@ -16,4 +16,3 @@ public class Item {
     this.offers = offers.stream().sorted(Comparator.comparing(Offer::getQuantity).reversed()).toList();
   }
 }
-
