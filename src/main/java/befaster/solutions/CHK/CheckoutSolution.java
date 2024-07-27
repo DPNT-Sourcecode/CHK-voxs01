@@ -9,6 +9,10 @@ import java.util.Map;
 public class CheckoutSolution {
 
     private Integer calculateOffer(int quantity, int normalPrice, int offerPrice, int offerQuantity) {
+        // Not clear at the moment if this will handle their cases, but will prevent errors
+        if (offerQuantity == 0) {
+            return 0;
+        }
         int repeatOffer = quantity / offerQuantity;
         int remainingProductsWithoutOffer = quantity % offerQuantity;
         return repeatOffer * offerPrice + remainingProductsWithoutOffer * normalPrice;

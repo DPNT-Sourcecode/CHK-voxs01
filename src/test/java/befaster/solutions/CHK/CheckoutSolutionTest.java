@@ -35,4 +35,19 @@ class CheckoutSolutionTest {
   void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct() {
     assertThat(solution.checkout("AAAAAAAA")).isEqualTo(130 * 2 + 50 * 2);
   }
+
+  @Test
+  void shouldReturnTheTotalValue_LowerCase() {
+    assertThat(solution.checkout("abcd")).isEqualTo(50 + 30 + 20 + 15);
+  }
+
+  @Test
+  void shouldReturnTheTotalValue_SpecialOffers_LowerCase() {
+    assertThat(solution.checkout("aaabbcd")).isEqualTo(130 + 45 + 20 + 15);
+  }
+
+  @Test
+  void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct_LowerCase() {
+    assertThat(solution.checkout("aaaaaaaa")).isEqualTo(130 * 2 + 50 * 2);
+  }
 }
