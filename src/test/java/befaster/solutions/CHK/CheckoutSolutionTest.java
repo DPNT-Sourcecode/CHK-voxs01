@@ -46,12 +46,18 @@ class CheckoutSolutionTest {
   }
 
   @Test
-  void shouldReturnTheTotalValue_ReceiveFreeB() {
+  void shouldReturnTheTotalValue_ReceiveOneFree() {
+    // For E
     assertThat(solution.checkout("BBEEEEE")).isEqualTo(40 * 5);
     assertThat(solution.checkout("BBBBEEEEE")).isEqualTo(40 * 5 + 45);
     assertThat(solution.checkout("EE")).isEqualTo(40 * 2);
     assertThat(solution.checkout("EEB")).isEqualTo(40 * 2);
     assertThat(solution.checkout("EEEB")).isEqualTo(40 * 3);
+
+    // For F
+    assertThat(solution.checkout("FFFF")).isEqualTo(10 * 2);
+    assertThat(solution.checkout("FFFFF")).isEqualTo(10 * 3);
+    assertThat(solution.checkout("FF")).isEqualTo(10);
   }
 }
 
