@@ -34,17 +34,22 @@ public class CheckoutSolution {
             Character item = entry.getKey();
             Integer quantity = entry.getValue();
 
+            // TODO: enhance based on feedbacks
             switch (item) {
                 case 'A':
+                case 'a':
                     total += calculateOffer(quantity, 50, 130, 3);
                     break;
                 case 'B':
+                case 'b':
                     total += calculateOffer(quantity, 30, 45, 2);
                     break;
                 case 'C':
+                case 'c':
                     total += quantity * 20;
                     break;
                 case 'D':
+                case 'd':
                     total += quantity * 15;
                     break;
                 default:
@@ -55,4 +60,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
