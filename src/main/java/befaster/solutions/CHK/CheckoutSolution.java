@@ -23,8 +23,17 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
 
         List<Character> itemsSortedByHighestPrice = items.stream().sorted((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice())).toList();
 
+        // ZZZZZSS
         // How many times we can apply this discount
-        int applicableDiscountTimes = totalCount / quantity;
+        int applicableDiscountTimes = totalCount / quantity; // 7 / 3 = 2
+        // Z: 5, S: 2
+        // 1: Z
+        // applicableDiscountTimes = 2
+        // itemCount = 5
+        // Z: 2, S: 2
+        // 2: S
+        // applicableDiscountTimes = 1
+        // itemCount = 2
         for (Character item : itemsSortedByHighestPrice) {
             int itemCount = productByQuantity.getOrDefault(item, 0);
             if (itemCount <= applicableDiscountTimes * quantity) {
@@ -132,3 +141,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
