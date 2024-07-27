@@ -41,7 +41,7 @@ public class CheckoutSolution {
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
             if (item >= 'A' && item <= 'E') {
-                productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
+                productByQuantity.merge(item, 1, Integer::sum);
             } else {
                 // No invalid values are allowed in the string
                 return -1;
@@ -69,9 +69,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
-
-

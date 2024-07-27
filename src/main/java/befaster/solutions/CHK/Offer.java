@@ -7,4 +7,3 @@ public class Offer {
   int quantity;
   int totalPrice;
 }
-
