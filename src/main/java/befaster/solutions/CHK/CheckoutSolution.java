@@ -38,7 +38,7 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
             }
         }
 
-        
+
     }
 }
 
@@ -132,6 +132,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
