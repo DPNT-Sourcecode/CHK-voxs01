@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-record GetOneFreeStrategy(int quantity, Character origin, Character destiny) {
+record GetOneFreeStrategy(int quantity, int freeQuantity, Character origin, Character destiny) {
 
     public void apply(Map<Character, Integer> productByQuantity) {
         if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
-            int freeN = productByQuantity.get(origin) / quantity;
+            int freeN = productByQuantity.get(origin) / quantity * freeQuantity;
             productByQuantity.computeIfPresent(destiny, (c, items) -> items - freeN);
 
             if (productByQuantity.getOrDefault(destiny, 0) < 0) {
@@ -32,8 +32,8 @@ public class CheckoutSolution {
         priceByItem.put('E', new Item(40, List.of()));
         priceByItem.put('F', new Item(10, List.of()));
 
-        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 'E', 'B'));
-        getOneFreeStrategies.add(new GetOneFreeStrategy(3, 'F', 'F'));
+        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 1, 'E', 'B'));
+        getOneFreeStrategies.add(new GetOneFreeStrategy(3, 1, 'F', 'F'));
     }
 
     private Integer calculateTotalWithOfferForItem(int quantity, Item item) {
@@ -84,5 +84,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
