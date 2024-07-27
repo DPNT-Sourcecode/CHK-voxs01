@@ -1,7 +1,5 @@
 package befaster.solutions.CHK;
 
-import lombok.Value;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +36,7 @@ public class CheckoutSolution {
         getOneFreeStrategies.add(new GetOneFreeStrategy(3, 'F', 'F'));
     }
 
-    private Integer calculateOffer(int quantity, Item item) {
+    private Integer calculateTotalWithOfferForItem(int quantity, Item item) {
         int count = quantity;
         int total = 0;
         for (Offer offer : item.getOffers()) {
@@ -80,10 +78,11 @@ public class CheckoutSolution {
             Integer quantity = entry.getValue();
 
             Item item = priceByItem.get(itemName);
-            total += calculateOffer(quantity, item);
+            total += calculateTotalWithOfferForItem(quantity, item);
         }
 
         return total;
     }
 }
+
 
