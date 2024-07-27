@@ -21,15 +21,15 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
     public void apply(Map<Character, Integer> productByQuantity, Map<Character, Item> priceByItem) {
         int totalCount = items.stream().mapToInt(c -> productByQuantity.getOrDefault(c, 0)).sum();
 
-        items.stream().sorted((a, b) -> Integer.compare(a))
+        List<Character> itemsSortedByHighestPrice = items.stream().sorted((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice())).toList();
 
-        TreeMap<Character, Item> itemsSortedByHighestPrice = items.stream().map(itemName -> {
-            Item item = priceByItem.get(itemName);
-            return Map.entry(itemName, item);
-        }).collect(Collectors.toMap());
-
-        for (Item item : itemsSortedByHighestPrice) {
+        // How many times we can apply this discount
+        int applicableDiscountTimes = totalCount / quantity;
+        for (Character item : itemsSortedByHighestPrice) {
             int itemCount = productByQuantity.getOrDefault(item, 0);
+            if (itemCount < applicableDiscountTimes * quantity) {
+                
+            }
 
 
         }
@@ -135,4 +135,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
