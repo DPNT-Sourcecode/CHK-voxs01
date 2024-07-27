@@ -19,6 +19,20 @@ record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Charac
     }
 }
 
+record SpecialOfferStrategy() {
+    public static Integer apply(int quantity, Item item) {
+        int count = quantity;
+        int total = 0;
+        for (Offer offer : item.getOffers()) {
+            int offerCount = count / offer.getQuantity();
+            total += offerCount * offer.getTotalPrice();
+            count %= offer.getQuantity();
+        }
+        total += count * item.getPrice();
+        return total;
+    }
+}
+
 public class CheckoutSolution {
 
     private static final Map<Character, Item> priceByItem = new HashMap<>();
@@ -59,18 +73,6 @@ public class CheckoutSolution {
         getNFreeStrategies.add(new GetNFreeStrategy(4, 'U', 1, 'U'));
     }
 
-    private Integer calculateTotalWithOfferForItem(int quantity, Item item) {
-        int count = quantity;
-        int total = 0;
-        for (Offer offer : item.getOffers()) {
-            int offerCount = count / offer.getQuantity();
-            total += offerCount * offer.getTotalPrice();
-            count %= offer.getQuantity();
-        }
-        total += count * item.getPrice();
-        return total;
-    }
-
     public Integer checkout(String skus) {
         if (skus == null) {
             return -1;
@@ -101,10 +103,11 @@ public class CheckoutSolution {
             Integer quantity = entry.getValue();
 
             Item item = priceByItem.get(itemName);
-            total += calculateTotalWithOfferForItem(quantity, item);
+            total += SpecialOfferStrategy.apply(quantity, item);
         }
 
         return total;
     }
 }
+
 
