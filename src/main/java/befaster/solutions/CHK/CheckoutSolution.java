@@ -1,12 +1,30 @@
 package befaster.solutions.CHK;
 
+import lombok.Value;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+record GetOneFreeStrategy(int quantity, Character origin, Character destiny) {
+
+    public void apply(Map<Character, Integer> productByQuantity) {
+        if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
+            int freeN = productByQuantity.get(origin) / quantity;
+            productByQuantity.computeIfPresent(destiny, (c, items) -> items - freeN);
+
+            if (productByQuantity.getOrDefault(destiny, 0) < 0) {
+                productByQuantity.put(destiny, 0);
+            }
+        }
+    }
+}
+
 public class CheckoutSolution {
 
     private static final Map<Character, Item> priceByItem = new HashMap<>();
+    private static final List<GetOneFreeStrategy> getOneFreeStrategies = new ArrayList<>();
 
     static {
         priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
@@ -15,6 +33,9 @@ public class CheckoutSolution {
         priceByItem.put('D', new Item(15, List.of()));
         priceByItem.put('E', new Item(40, List.of()));
         priceByItem.put('F', new Item(10, List.of()));
+
+        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 'E', 'B'));
+        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 'F', 'F'));
     }
 
     private Integer calculateOffer(int quantity, Item item) {
@@ -41,7 +62,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productByQuantity = new HashMap<>();
         for (int i = 0; i < skus.length(); i++) {
             char item = skus.charAt(i);
-            if (item >= 'A' && item <= 'E') {
+            if (item >= 'A' && item <= 'F') {
                 productByQuantity.merge(item, 1, Integer::sum);
             } else {
                 // No invalid values are allowed in the string
@@ -49,13 +70,8 @@ public class CheckoutSolution {
             }
         }
 
-        if (productByQuantity.getOrDefault('E', 0) >= 2) {
-            int freeBs = productByQuantity.get('E') / 2;
-            productByQuantity.computeIfPresent('B', (c, items) -> items - freeBs);
-
-            if (productByQuantity.getOrDefault('B', 0) < 0) {
-                productByQuantity.put('B', 0);
-            }
+        for (GetOneFreeStrategy getOneFreeStrategy : getOneFreeStrategies) {
+            getOneFreeStrategy.apply(productByQuantity);
         }
 
         int total = 0;
@@ -70,4 +86,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
