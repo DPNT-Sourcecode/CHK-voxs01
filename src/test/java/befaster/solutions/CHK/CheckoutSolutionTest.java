@@ -3,6 +3,7 @@ package befaster.solutions.CHK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CheckoutSolutionTest {
@@ -16,6 +17,7 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnZero_IfNullOrEmpty() {
-    assertThat(solution.checkout(null));
+    assertThat(solution.checkout(null)).isZero();
+    assertThat(solution.checkout("")).isZero();
   }
 }

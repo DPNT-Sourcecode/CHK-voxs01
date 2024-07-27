@@ -4,8 +4,10 @@ import befaster.runner.SolutionNotImplementedException;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        if (skus == null || skus.length() == 0) {
+        if (skus == null || skus.isBlank()) {
             return 0;
         }
+
+        return 0;
     }
 }
