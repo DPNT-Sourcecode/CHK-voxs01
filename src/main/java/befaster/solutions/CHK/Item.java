@@ -12,6 +12,8 @@ public class Item {
 
   public Item(int price, List<Offer> offers) {
     this.price = price;
+    // We need to store the offer with the highest quantity, since it will have the best balance
     this.offers = offers.stream().sorted(Comparator.comparing(Offer::getQuantity).reversed()).toList();
   }
 }
+
