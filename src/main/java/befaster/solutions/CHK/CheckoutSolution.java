@@ -28,19 +28,10 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
         for (Character item : itemsSortedByHighestPrice) {
             int itemCount = productByQuantity.getOrDefault(item, 0);
             if (itemCount <= applicableDiscountTimes * quantity) {
-                
+                productByQuantity.put(item, )
             }
 
 
-        }
-
-        if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
-            int freeN = productByQuantity.get(origin) / quantity * freeQuantity;
-            productByQuantity.computeIfPresent(destiny, (c, items) -> items - freeN);
-
-            if (productByQuantity.getOrDefault(destiny, 0) < 0) {
-                productByQuantity.put(destiny, 0);
-            }
         }
     }
 }
@@ -135,6 +126,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
