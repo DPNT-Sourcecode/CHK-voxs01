@@ -32,12 +32,12 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnTheTotalValue() {
-    assertThat(solution.checkout("ABCDE")).isEqualTo(50 + 30 + 20 + 15 + 40);
+    assertThat(solution.checkout("ABCDEF")).isEqualTo(50 + 30 + 20 + 15 + 40 + 10);
   }
 
   @Test
   void shouldReturnTheTotalValue_SpecialOffers() {
-    assertThat(solution.checkout("AAAAABBCDE")).isEqualTo(200 + 45 + 20 + 15 + 40);
+    assertThat(solution.checkout("AAAAABBCDEF")).isEqualTo(200 + 45 + 20 + 15 + 40 + 10);
   }
 
   @Test
@@ -58,6 +58,9 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("FFFF")).isEqualTo(10 * 2);
     assertThat(solution.checkout("FFFFF")).isEqualTo(10 * 3);
     assertThat(solution.checkout("FF")).isEqualTo(10);
+
+    // For E and F
+    assertThat(solution.checkout("FFFFEEB")).isEqualTo(10 * 2 + 40 * 2);
+    assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 2 + 40 * 3);
   }
 }
-
