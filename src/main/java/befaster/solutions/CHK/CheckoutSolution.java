@@ -2,6 +2,20 @@ package befaster.solutions.CHK;
 
 import java.util.*;
 
+record SpecialOfferStrategy() {
+    public static Integer apply(int quantity, Item item) {
+        int count = quantity;
+        int total = 0;
+        for (Offer offer : item.getOffers()) {
+            int offerCount = count / offer.getQuantity();
+            total += offerCount * offer.getTotalPrice();
+            count %= offer.getQuantity();
+        }
+        total += count * item.getPrice();
+        return total;
+    }
+}
+
 record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Character destiny) {
 
     public void apply(Map<Character, Integer> productByQuantity) {
@@ -17,7 +31,7 @@ record GetNFreeStrategy(int quantity, Character origin, int freeQuantity, Charac
 }
 
 record GroupDiscountStrategy(List<Character> items, int discountQuantity, int totalPrice) {
-    public void apply(Map<Character, Integer> productByQuantity, Map<Character, Item> priceByItem) {
+    public int apply(Map<Character, Integer> productByQuantity, Map<Character, Item> priceByItem) {
         List<Character> allItems = new ArrayList<>();
         for (Character item : items) {
             Integer itemQuantity = productByQuantity.getOrDefault(item, 0);
@@ -25,33 +39,18 @@ record GroupDiscountStrategy(List<Character> items, int discountQuantity, int to
                 allItems.add(item);
             }
         }
+        // Sorting in descending price order
         allItems.sort((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice()));
 
         // Number of groups we will apply the discounts
         int nDiscountGroups = allItems.size() / discountQuantity;
-        // Products we will not apply discounts
-        int remainingProducts = allItems.size() % discountQuantity;
-
+        // Now we remove the most expensive items from the list and remove them from the map
         for (int i = 0; i < nDiscountGroups * discountQuantity; i++) {
             Character item = allItems.get(i);
             productByQuantity.merge(item, -1, Integer::sum);
         }
 
-        
-    }
-}
-
-record SpecialOfferStrategy() {
-    public static Integer apply(int quantity, Item item) {
-        int count = quantity;
-        int total = 0;
-        for (Offer offer : item.getOffers()) {
-            int offerCount = count / offer.getQuantity();
-            total += offerCount * offer.getTotalPrice();
-            count %= offer.getQuantity();
-        }
-        total += count * item.getPrice();
-        return total;
+        return nDiscountGroups * totalPrice;
     }
 }
 
@@ -59,6 +58,7 @@ public class CheckoutSolution {
 
     private static final Map<Character, Item> priceByItem = new HashMap<>();
     private static final List<GetNFreeStrategy> getNFreeStrategies = new ArrayList<>();
+    private static final List<GroupDiscountStrategy> groupDiscountStrategies = new ArrayList<>();
 
     static {
         priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
@@ -93,6 +93,8 @@ public class CheckoutSolution {
         getNFreeStrategies.add(new GetNFreeStrategy(3, 'N', 1, 'M'));
         getNFreeStrategies.add(new GetNFreeStrategy(3, 'R', 1, 'Q'));
         getNFreeStrategies.add(new GetNFreeStrategy(4, 'U', 1, 'U'));
+
+        groupDiscountStrategies.add(new GroupDiscountStrategy(List.of('S', 'T', 'X', 'Y', 'Z'), 3, 45));
     }
 
     public Integer checkout(String skus) {
@@ -120,6 +122,9 @@ public class CheckoutSolution {
         }
 
         int total = 0;
+        for (GroupDiscountStrategy groupDiscountStrategy : groupDiscountStrategies) {
+            total += groupDiscountStrategy.apply(productByQuantity, priceByItem);
+        }
         for (Map.Entry<Character, Integer> entry : productByQuantity.entrySet()) {
             Character itemName = entry.getKey();
             Integer quantity = entry.getValue();
@@ -131,6 +136,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 

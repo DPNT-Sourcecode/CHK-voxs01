@@ -70,4 +70,12 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("FFFFEEB")).isEqualTo(10 * 3 + 40 * 2);
     assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 3 + 40 * 3);
   }
+
+  @Test
+  void groupDiscounts() {
+    assertThat(solution.checkout("SSSTTTXXXYYYZZZ")).isEqualTo(45 * 5);
+    assertThat(solution.checkout("XXXXZZ")).isEqualTo(45 * 2);
+    assertThat(solution.checkout("ZXYTSZXYTS")).isEqualTo(45 * 3 + 17);
+  }
 }
+
