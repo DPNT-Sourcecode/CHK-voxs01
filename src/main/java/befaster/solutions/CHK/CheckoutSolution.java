@@ -32,11 +32,10 @@ public class CheckoutSolution {
             char item = skus.charAt(i);
             if (item >= 'A' && item <= 'D') {
                 productByQuantity.put(item, productByQuantity.getOrDefault(item, 0) + 1);
+            } else {
+                // No invalid values are allowed in the string
+                return -1;
             }
-        }
-
-        if (productByQuantity.isEmpty()) {
-            return -1;
         }
 
         int total = 0;
@@ -65,5 +64,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
