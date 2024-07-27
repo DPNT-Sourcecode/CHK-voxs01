@@ -7,6 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
+
+    private Integer calculateOffer(int quantity, int normalPrice, int offerPrice, int offerQuantity) {
+        int repeatOffer = quantity / offerQuantity;
+        int remainingProductsWithoutOffer = quantity % offerQuantity;
+        return repeatOffer * offerPrice + remainingProductsWithoutOffer * normalPrice;
+    }
+
     public Integer checkout(String skus) {
         if (skus == null || skus.isBlank()) {
             return -1;
@@ -25,22 +32,10 @@ public class CheckoutSolution {
 
             switch (item) {
                 case 'A':
-                    if (quantity > 2) {
-                        int repeatOffer = quantity / 3;
-                        int remainingProductsWithoutOffer = quantity % 3;
-                        total += repeatOffer * 130 + remainingProductsWithoutOffer * 50;
-                    } else {
-                        total += quantity * 50;
-                    }
+                    total += calculateOffer(quantity, 50, 130, 3);
                     break;
                 case 'B':
-                    if (quantity > 1) {
-                        int repeatOffer = quantity / 2;
-                        int remainingProductsWithoutOffer = quantity % 2;
-                        total += repeatOffer * 45 + remainingProductsWithoutOffer * 30;
-                    } else {
-                        total += quantity * 30;
-                    }
+                    total += calculateOffer(quantity, 30, 45, 2);
                     break;
                 case 'C':
                     total += quantity * 20;
@@ -56,3 +51,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
