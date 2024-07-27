@@ -55,12 +55,13 @@ class CheckoutSolutionTest {
     assertThat(solution.checkout("EEEB")).isEqualTo(40 * 3);
 
     // For F
-    assertThat(solution.checkout("FFFF")).isEqualTo(10 * 2);
-    assertThat(solution.checkout("FFFFF")).isEqualTo(10 * 3);
-    assertThat(solution.checkout("FF")).isEqualTo(10);
+    assertThat(solution.checkout("FFFF")).isEqualTo(10 * 3);
+    assertThat(solution.checkout("FFFFFF")).isEqualTo(10 * 4);
+    assertThat(solution.checkout("FF")).isEqualTo(20);
 
     // For E and F
-    assertThat(solution.checkout("FFFFEEB")).isEqualTo(10 * 2 + 40 * 2);
-    assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 2 + 40 * 3);
+    assertThat(solution.checkout("FFFFEEB")).isEqualTo(10 * 3 + 40 * 2);
+    assertThat(solution.checkout("FFFFEEEB")).isEqualTo(10 * 3 + 40 * 3);
   }
 }
+

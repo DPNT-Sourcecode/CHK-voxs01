@@ -35,7 +35,7 @@ public class CheckoutSolution {
         priceByItem.put('F', new Item(10, List.of()));
 
         getOneFreeStrategies.add(new GetOneFreeStrategy(2, 'E', 'B'));
-        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 'F', 'F'));
+        getOneFreeStrategies.add(new GetOneFreeStrategy(3, 'F', 'F'));
     }
 
     private Integer calculateOffer(int quantity, Item item) {
@@ -86,3 +86,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
