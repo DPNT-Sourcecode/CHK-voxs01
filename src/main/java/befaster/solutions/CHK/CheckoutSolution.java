@@ -28,6 +28,9 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
         for (Character item : itemsSortedByHighestPrice) {
             int itemCount = productByQuantity.getOrDefault(item, 0);
             if (itemCount <= applicableDiscountTimes * quantity) {
+                // We can apply the discount, so we need to remove the number of discounts we will apply with this product
+                applicableDiscountTimes -= itemCount / quantity;
+                // If there are remaining products, we will maintain them
                 productByQuantity.put(item, )
             }
 
@@ -126,6 +129,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
