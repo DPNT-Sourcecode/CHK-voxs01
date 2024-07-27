@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-record GetOneFreeStrategy(int quantity, int freeQuantity, Character origin, Character destiny) {
+record GetNFreeStrategy(int quantity, int freeQuantity, Character origin, Character destiny) {
 
     public void apply(Map<Character, Integer> productByQuantity) {
         if (productByQuantity.getOrDefault(origin, 0) >= quantity) {
@@ -22,7 +22,7 @@ record GetOneFreeStrategy(int quantity, int freeQuantity, Character origin, Char
 public class CheckoutSolution {
 
     private static final Map<Character, Item> priceByItem = new HashMap<>();
-    private static final List<GetOneFreeStrategy> getOneFreeStrategies = new ArrayList<>();
+    private static final List<GetNFreeStrategy> getNFreeStrategies = new ArrayList<>();
 
     static {
         priceByItem.put('A', new Item(50, List.of(new Offer(3, 130), new Offer(5, 200))));
@@ -32,8 +32,8 @@ public class CheckoutSolution {
         priceByItem.put('E', new Item(40, List.of()));
         priceByItem.put('F', new Item(10, List.of()));
 
-        getOneFreeStrategies.add(new GetOneFreeStrategy(2, 1, 'E', 'B'));
-        getOneFreeStrategies.add(new GetOneFreeStrategy(3, 1, 'F', 'F'));
+        getNFreeStrategies.add(new GetNFreeStrategy(2, 1, 'E', 'B'));
+        getNFreeStrategies.add(new GetNFreeStrategy(3, 1, 'F', 'F'));
     }
 
     private Integer calculateTotalWithOfferForItem(int quantity, Item item) {
@@ -68,8 +68,8 @@ public class CheckoutSolution {
             }
         }
 
-        for (GetOneFreeStrategy getOneFreeStrategy : getOneFreeStrategies) {
-            getOneFreeStrategy.apply(productByQuantity);
+        for (GetNFreeStrategy getNFreeStrategy : getNFreeStrategies) {
+            getNFreeStrategy.apply(productByQuantity);
         }
 
         int total = 0;
@@ -84,6 +84,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
