@@ -75,7 +75,9 @@ class CheckoutSolutionTest {
   void groupDiscounts() {
     assertThat(solution.checkout("SSSTTTXXXYYYZZZ")).isEqualTo(45 * 5);
     assertThat(solution.checkout("XXXXZZ")).isEqualTo(45 * 2);
+    assertThat(solution.checkout("ZZYYTTSSXX")).isEqualTo(45 * 3 + 17);
     assertThat(solution.checkout("ZXYTSZXYTS")).isEqualTo(45 * 3 + 17);
   }
 }
+
 
