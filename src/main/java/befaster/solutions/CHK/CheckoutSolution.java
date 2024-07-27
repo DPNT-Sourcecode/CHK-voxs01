@@ -47,6 +47,10 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
             }
         }
 
+        List<Character> allItems = new ArrayList<>();
+        for (Character item : items) {
+            allItems.add(item);
+        }
 
     }
 }
@@ -141,4 +145,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
