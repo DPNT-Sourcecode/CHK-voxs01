@@ -9,7 +9,7 @@ import java.util.Map;
 public class CheckoutSolution {
     public Integer checkout(String skus) {
         if (skus == null || skus.isBlank()) {
-            return 0;
+            return -1;
         }
 
         Map<Character, Integer> productByQuantity = new HashMap<>();
@@ -29,11 +29,18 @@ public class CheckoutSolution {
                         int repeatOffer = quantity / 3;
                         int remainingProductsWithoutOffer = quantity % 3;
                         total += repeatOffer * 130 + remainingProductsWithoutOffer * 50;
+                    } else {
+                        total += quantity * 50;
                     }
-                    total += quantity * 50;
                     break;
                 case 'B':
-                    total += quantity * 30;
+                    if (quantity > 1) {
+                        int repeatOffer = quantity / 2;
+                        int remainingProductsWithoutOffer = quantity % 2;
+                        total += repeatOffer * 45 + remainingProductsWithoutOffer * 30;
+                    } else {
+                        total += quantity * 30;
+                    }
                     break;
                 case 'C':
                     total += quantity * 20;

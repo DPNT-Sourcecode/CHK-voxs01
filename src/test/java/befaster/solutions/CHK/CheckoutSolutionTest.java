@@ -17,8 +17,8 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnZero_IfNullOrEmpty() {
-    assertThat(solution.checkout(null)).isZero();
-    assertThat(solution.checkout("")).isZero();
+    assertThat(solution.checkout(null)).isEqualTo(-1);
+    assertThat(solution.checkout("")).isEqualTo(-1);
   }
 
   @Test
@@ -28,6 +28,11 @@ class CheckoutSolutionTest {
 
   @Test
   void shouldReturnTheTotalValue_SpecialOffers() {
-    assertThat(solution.checkout("AAABCD")).isEqualTo(130 + 30 + 20 + 15);
+    assertThat(solution.checkout("AAABBCD")).isEqualTo(130 + 45 + 20 + 15);
+  }
+
+  @Test
+  void shouldReturnTheTotalValue_MultipleSpecialOffers_SameProduct() {
+    assertThat(solution.checkout("AAAAAAAA")).isEqualTo(130 * 2 + 50 * 2);
   }
 }
