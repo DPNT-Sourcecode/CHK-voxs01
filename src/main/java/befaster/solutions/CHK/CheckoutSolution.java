@@ -56,7 +56,19 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
         }
         allItems.sort((a, b) -> Integer.compare(priceByItem.get(b).getPrice(), priceByItem.get(a).getPrice()));
 
-        int nDiscountGroups = allItems / quantity;
+        // Number of groups we will apply the discounts
+        int nDiscountGroups = allItems.size() / quantity;
+        // Products we will not apply discounts
+        int remainingProducts = allItems.size() % quantity;
+
+        for (int i = 0; i < nDiscountGroups * quantity; i++) {
+            Character item = allItems.get(i);
+            productByQuantity.merge(item, -1, Integer::sum);
+        }
+
+        for (int i = 0; i < remainingProducts; i++) {
+            
+        }
     }
 }
 
@@ -150,6 +162,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
