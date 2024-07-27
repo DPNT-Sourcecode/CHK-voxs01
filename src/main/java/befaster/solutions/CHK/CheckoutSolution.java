@@ -21,10 +21,12 @@ public class CheckoutSolution {
             return quantity * item.getPrice();
         }
 
+        int count = quantity;
         int total = 0;
         for (Offer offer : item.getOffers()) {
-            int offerCount = 
-
+            int offerQuantity = count / offer.getQuantity();
+            total += offerQuantity * offer.getTotalPrice();
+            count %= offerQuantity;
         }
 
         int repeatOffer = quantity / offerQuantity;
@@ -78,6 +80,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
