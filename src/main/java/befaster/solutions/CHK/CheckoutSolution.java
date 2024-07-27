@@ -31,10 +31,10 @@ record GroupDiscountStrategy(List<Character> items, int quantity, int totalPrice
                 // We can apply the discount, so we need to remove the number of discounts we will apply with this product
                 applicableDiscountTimes -= itemCount / quantity;
                 // If there are remaining products, we will maintain them
-                productByQuantity.put(item, )
+                productByQuantity.put(item, itemCount % quantity);
+            } else {
+                productByQuantity.put(item, itemCount % quantity);
             }
-
-
         }
     }
 }
@@ -129,6 +129,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
